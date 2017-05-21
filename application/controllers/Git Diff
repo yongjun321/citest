@@ -1,0 +1,62 @@
+diff --git a/application/controllers/Barrage.php b/application/controllers/Barrage.php
+index 285cba6..508d6fb 100755
+--- a/application/controllers/Barrage.php
++++ b/application/controllers/Barrage.php
+@@ -6,8 +6,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
+  * Date: 2017/2/7
+  * Time: 14:19
+  */
+-
+-
+ class Barrage extends CI_Controller{
+     public function __construct(){
+         parent::__construct();
+@@ -17,7 +15,10 @@ class Barrage extends CI_Controller{
+         //$this->output->enable_profiler(true);
+     }
+ 
+-    //活动首页
++    /**
++     * 加载首页
++     * @return [type]
++     */
+     public function index(){
+         if(!$result = $this->dredis->lrange('list',0,100)){
+             $result = $this->barrage_model->listBarrage(30);
+@@ -47,6 +48,7 @@ class Barrage extends CI_Controller{
+     }
+     /**
+      * ajax回去弹幕列表
++     * @return html
+      */
+     public function lists(){
+         //从redis获取20条内容
+@@ -61,7 +63,8 @@ class Barrage extends CI_Controller{
+     }
+ 
+     /**
+-     * 发射弹幕
++     * 保存弹幕
++     * @return json
+      */
+     public function save(){
+ 
+@@ -139,7 +142,8 @@ class Barrage extends CI_Controller{
+     }
+ 
+     /**
+-     * 注册账号，登陆
++     * 注册登录
++     * @return json
+      */
+     public function reg(){
+         $phone  = $this->input->post('phone');
+@@ -378,7 +382,7 @@ class Barrage extends CI_Controller{
+             $config['base_url']   = site_url('barrage/listBarrage');
+             $config['total_rows'] = $this->barrage_model->countBarrage();
+             $config['per_page']   = 20;
+-            //$config['uri_segment']=3;
++     Bracket Highlighter       //$config['uri_segment']=3;
+ 
+             #自定义分页链接
+             $config['first_link'] = '首页';
